@@ -16,14 +16,13 @@ function LoginForm() {
         console.log(formData);
         axios.post("http://localhost:8080/login", formData)
             .then((response) => {
-                //console.log(response.data.mes);
-                //setMes(response.data.mes);
+                console.log(response.data.mes);
         })
     }
 
   return (
     <div className="wrapper">
-      <h1>SignUp</h1>
+      <h1>Login</h1>
 
       <form onSubmit={handleSubmit}>
         <fieldset>

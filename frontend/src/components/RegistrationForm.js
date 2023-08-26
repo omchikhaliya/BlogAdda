@@ -14,7 +14,7 @@ function RegistrationForm() {
     const handleSubmit = event => {
         event.preventDefault();
         console.log(formData);
-        axios.post("http://localhost:8080/", formData)
+        axios.post("http://localhost:8080/registration", formData)
             .then((response) => {
                 console.log(response.data.mes);
                 setMes(response.data.mes);
