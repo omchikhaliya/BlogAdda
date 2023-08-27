@@ -1,7 +1,13 @@
 import Data from '../models/userModel.js'
 const formHandle = async (req, res) => {
+    const {fullname, email, pwd, conpwd, profilepic} = req.body;
+    console.log({email});
     console.log(req.body.name);
-
+    const user = await Data.findOne({ email });
+    if (user) {
+        const data = {'mes' : "User already Exist"};
+        return res.send(data);
+      }
     if(req.body.pwd != req.body.conpwd){
         const data = {'mes' : 'Password and confirm password not match.'};
         res.send(data);

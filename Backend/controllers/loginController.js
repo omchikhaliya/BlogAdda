@@ -29,7 +29,10 @@ const loginController = async (req, res) => {
             expiresIn: "1h",
         });
         data.mes = "Login successfully..";
-        console.log(token.userId);
+        const decodedToken = jwt.verify(token, "your-secret-key");
+        
+        console.log(decodedToken.userId);
+        // console.log(token.userId);
         return res.send(data);
     }
 
