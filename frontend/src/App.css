@@ -2,9 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 
-
-.App {
+.input-text{
+  @apply font-poppins text-white bg-transparent focus:outline-none border border-r-0 border-t-0 border-l-0 tracking-wide
+}
+/* .App {
   text-align: center;
 }
 
@@ -41,4 +44,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
