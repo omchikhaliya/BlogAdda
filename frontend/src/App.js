@@ -1,14 +1,30 @@
 import './App.css';
-
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RegistrationForm from './components/RegistrationForm.js'
 import LoginForm from './components/LoginForm';
+import { NavBar } from './components/NavBar';
+import { HomePage } from './pages/HomePage';
+import { LoginPage } from './pages/LoginPage';
+import { RegisterPage } from './pages/RegisterPage';
 
 function App() {
   return (
-    <div className="App">
-      {/* <RegistrationForm /> */}
-      <LoginForm /> 
-    </div>
+    // <div className="App">
+    //   <NavBar/>
+    //   <RegistrationForm />
+    //   {/* <LoginForm />  */}
+    // </div>
+
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage/>}/>
+          {/* <Route index element={<HomePage />} /> */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/*" element={<HomePage />} />
+      </Routes>
+    </BrowserRouter>
 
     // <div className='App bg-gray-900 h-screen w-screen relative overflow-hidden flex flex-col justify-center items-center'>
     //   <div className='h-40-r w-40-r bg-gradient-to-r from-green-400 to-blue-500 rounded-full absolute left-2/3 -top-56 animate-pulse'></div>

@@ -10,10 +10,6 @@ app.use(express.json());
 // app.get('/', (req, res) => res.send('Hello world!'));
 
 
-
-
-
-
 import cors from 'cors';
 const corsOptions ={
     origin:'*', 
