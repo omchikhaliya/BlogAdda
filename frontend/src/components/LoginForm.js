@@ -9,14 +9,17 @@ const formReducer = (state, event) => {
     }
 }
 
+var messeage;
 function LoginForm() {
 
     const [formData, setFormData] = useReducer(formReducer, {});
+    const [isresponse, setresponse] = useState(false);
     const handleSubmit = event => {
         event.preventDefault();
         console.log(formData);
         axios.post("http://localhost:8080/login", formData)
             .then((response) => {
+                setresponse(response.data.mes);
                 console.log(response.data.mes);
         })
     }

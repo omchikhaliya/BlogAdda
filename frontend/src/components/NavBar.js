@@ -1,6 +1,5 @@
 import React from 'react'
 import balogo from '../assets/images/logo_ba.jpg'
-import profilepic from '../assets/images/images.jpg'
 import { Outlet, Link } from "react-router-dom";
 
 export const NavBar = () => {
