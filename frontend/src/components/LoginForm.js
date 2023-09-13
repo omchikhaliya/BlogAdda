@@ -9,16 +9,17 @@ const formReducer = (state, event) => {
     }
 }
 
-var messeage;
+// var messeage;
 function LoginForm() {
 
     const [formData, setFormData] = useReducer(formReducer, {});
-    const [isresponse, setresponse] = useState(false);
+    const [response, setresponse] = useState('');
     const handleSubmit = event => {
         event.preventDefault();
         console.log(formData);
         axios.post("http://localhost:8080/login", formData)
             .then((response) => {
+                // messeage = response.data.mes;
                 setresponse(response.data.mes);
                 console.log(response.data.mes);
         })
@@ -66,7 +67,10 @@ function LoginForm() {
             <input type='email' placeholder='Email' name='email' className='input-text' onChange={setFormData} required></input>
             <input type='password' placeholder='Password' name='pwd' className='input-text' onChange={setFormData} required></input>
             <input type="submit" className='font-poppins cursor-pointer px-5 py-1 rounded-full bg-white bg-opacity-50 hover:bg-opacity-80'/>
+            {response && <div className='input-text'>{response}</div>}
           </form>
+
+
         </div>
     </div>
   );

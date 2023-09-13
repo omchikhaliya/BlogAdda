@@ -68,6 +68,7 @@ function RegistrationForm() {
                     <input type='password' placeholder='Confirm Password' name='conpwd' className='input-text' onChange={setFormData} required></input>
                     <input type='file' placeholder='Profile Picture' name='profilepic' className='input-text' onChange={setFormData} required></input>
                     <input type="submit" className='font-poppins cursor-pointer px-5 py-1 rounded-full bg-white bg-opacity-50 hover:bg-opacity-80'/>
+                    {mes && <div className='input-text'>{mes}</div>}
                     </form>
                 </div>
         </div>
