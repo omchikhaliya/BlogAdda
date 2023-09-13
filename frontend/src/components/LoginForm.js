@@ -67,7 +67,7 @@ function LoginForm() {
             <input type='email' placeholder='Email' name='email' className='input-text' onChange={setFormData} required></input>
             <input type='password' placeholder='Password' name='pwd' className='input-text' onChange={setFormData} required></input>
             <input type="submit" className='font-poppins cursor-pointer px-5 py-1 rounded-full bg-white bg-opacity-50 hover:bg-opacity-80'/>
-            {response && <div className='input-text'>{response}</div>}
+            {response && <div className='font-poppins text-red-600 bg-transparent focus:outline-none tracking-wide'>{response}</div>}
           </form>
 
 
