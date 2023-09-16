@@ -1,15 +1,19 @@
 // const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 // import mongoose from 'mongoose'
+import Data from './userModel.js'
 
-// const blogSchema = new mongoose.Schema({
-//     Title: {type:String, required:true},
-//     userid: {type:mongoose.Types.ObjectId, required:true},
-//     password: {type:String, required:true},
-//     profilepic: {type:Buffer, required:false},
-//     // Add more fields as needed
-// }, {timestamps : true});
+const blogSchema = new mongoose.Schema({
+    title: {type:String, required:true},
+    short_description : {type:String, required:true},
+    content : {type:String, required:true},
+    thumbnail : {type:Buffer, required:true},
+    blogtype : {type:String, required:true},
+    like : {type:Number, default : 0},
+    userid: {type:mongoose.Types.ObjectId, ref: 'User'},
+    // Add more fields as needed
+}, {timestamps : true});
+    
+const Blog = mongoose.model('Blog', blogSchema);
 
-// const Data = mongoose.model('Blog', blogSchema);
-
-// // module.exports = Data;
-// export default Data;
+export default Blog;

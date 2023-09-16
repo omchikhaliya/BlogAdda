@@ -19,8 +19,15 @@ const corsOptions ={
 
 app.use(cors(corsOptions));
 
+
+// routes
 import formRoute from './routes/formRoute.js';
 app.use("/", formRoute);
+
+// const blogRoutes = require('./routes/blogRoute')
+import blogRoutes from './routes/blogRoute.js';
+app.use("/blog", blogRoutes);
+
 
 app.listen(8080, (err) => {
     console.log(err);
