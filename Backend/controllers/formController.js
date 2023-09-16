@@ -14,13 +14,15 @@ const formHandle = async (req, res) => {
     }
     else{
         try {
+            
             const data =  new Data();
             data.fullname = req.body.fullname;
             data.email = req.body.email; 
             data.password = req.body.pwd;
             data.profilepic = req.body.profilepic   
             data.save();
-            res.send(data);
+            const data1 = {'flag' : null};
+            res.send(data1);
             console.log(data);
         }
         catch(error){

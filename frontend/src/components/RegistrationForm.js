@@ -1,5 +1,6 @@
 import React, { useReducer, useState } from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const formReducer = (state, event) => {
     return {
@@ -9,6 +10,7 @@ const formReducer = (state, event) => {
 }
 
 function RegistrationForm() {
+    const navigate = useNavigate();
     const [formData, setFormData] = useReducer(formReducer, {});    
     const [mes, setMes] = useState('');
     const handleSubmit = event => {
@@ -16,8 +18,12 @@ function RegistrationForm() {
         console.log(formData);
         axios.post("http://localhost:8080/registration", formData)
             .then((response) => {
-                console.log(response.data.mes);
-                setMes(response.data.mes);
+                // console.log(response.data.mes);
+                setMes(response.data.mes);  
+                
+                if(response.data.flag === null){
+                    navigate('/login');
+                }
         })
     }
 

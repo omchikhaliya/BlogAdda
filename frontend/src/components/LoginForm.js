@@ -1,6 +1,7 @@
 import React, { useReducer, useState } from 'react';
 import axios from 'axios';
-import { Outlet, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const formReducer = (state, event) => {
     return {
@@ -11,20 +12,25 @@ const formReducer = (state, event) => {
 
 // var messeage;
 function LoginForm() {
-
+    const navigate = useNavigate();
     const [formData, setFormData] = useReducer(formReducer, {});
     const [response, setresponse] = useState('');
+  
     const handleSubmit = event => {
         event.preventDefault();
         console.log(formData);
         axios.post("http://localhost:8080/login", formData)
             .then((response) => {
                 // messeage = response.data.mes;
+                // console.log(response.data.ke y)
                 setresponse(response.data.mes);
-                console.log(response.data.mes);
-        })
-    }
-
+                if(response.data.key != null)
+                {
+                  navigate("/");
+                }
+ 
+              })
+            }
   return (
     // <div className="wrapper">
     //   <h1>Login</h1>
@@ -69,9 +75,8 @@ function LoginForm() {
             <input type="submit" className='font-poppins cursor-pointer px-5 py-1 rounded-full bg-white bg-opacity-50 hover:bg-opacity-80'/>
             {response && <div className='font-poppins text-red-600 bg-transparent focus:outline-none tracking-wide'>{response}</div>}
           </form>
-
-
         </div>
+        
     </div>
   );
 }

@@ -1,13 +1,13 @@
 import Data from "../models/userModel.js";
 // const bcrypt = require('bcrypt');
-import bcrypt from 'bcrypt'
+// import bcrypt from 'bcrypt'
 // const jwt = require('jsonwebtoken');
 import jwt, { decode } from 'jsonwebtoken'
 
 const loginController = async (req, res) => {
   const { email, pwd } = req.body;
 
-  const data = { mes: null };
+  const data = { mes: null, key: null };
 
   try {
     const user = await Data.findOne({ email });
@@ -30,8 +30,9 @@ const loginController = async (req, res) => {
         });
         // data.mes = "Login successfully..";
         const decodedToken = jwt.verify(token, "your-secret-key");
-        data.mes = decodedToken.userId;
-        console.log(decodedToken.userId);
+        data.mes = "Login Successfully";
+        data.key = decodedToken.userId;
+        console.log(data.key);
         // console.log(token.userId);
         return res.send(data);
     }
