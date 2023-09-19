@@ -1,7 +1,8 @@
 import React from "react";
 import { NavBar } from "../components/NavBar";
 import { BlogDetails } from '../components/BlogDetails';
-
+import {BlogForm} from '../components/BlogForm';
+ 
 import { useEffect } from "react";
 import { useBlogsContext } from "../hooks/useBlogsContext";
 
@@ -72,14 +73,14 @@ export const HomePage = () => {
             </div>
           </div>
         </section>
-      </div> */}
+      </div> */}  
       <div className="home">
-        <div className="workouts">
+        <div className="blogs">
           {blogs &&
             blogs.map((blog) => <BlogDetails blog={blog} key={blog._id} />)}
         </div>
-        {/* <BlogForm /> */}
       </div>
+      {/* <BlogForm /> */}
     </>
   );
 };

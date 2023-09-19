@@ -4,6 +4,7 @@ import Data from "../models/userModel.js";
 // const jwt = require('jsonwebtoken');
 import jwt, { decode } from 'jsonwebtoken'
 
+
 const loginController = async (req, res) => {
   const { email, pwd } = req.body;
 
@@ -33,7 +34,7 @@ const loginController = async (req, res) => {
         data.mes = "Login Successfully";
         data.key = decodedToken.userId;
         console.log(data.key);
-        // console.log(token.userId);
+        console.log(token.userId);
         return res.send(data);
     }
 

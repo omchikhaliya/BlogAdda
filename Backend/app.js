@@ -2,6 +2,7 @@ import express from 'express';
 // import connectDB = require('./config/db.js');
 import connectDB from './config/db.js';
 
+
 connectDB();
 // const app = express();
 export const app = express();
