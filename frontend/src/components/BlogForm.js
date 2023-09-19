@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useBlogsContext } from "../hooks/useBlogsContext";
+import { NavBar } from "./NavBar";
 
 export const BlogForm = () => {
   const { dispatch } = useBlogsContext();
@@ -44,7 +45,8 @@ export const BlogForm = () => {
   };
 
   return (
-    
+    <>
+    <NavBar/>
    <form className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md" onSubmit={handleSubmit}>
   <h3 className="text-2xl font-semibold mb-6 ml-20">Add a New Blog</h3>
 
@@ -132,7 +134,7 @@ export const BlogForm = () => {
 
   {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
 </form>
-
+</>
   );
 };
 
