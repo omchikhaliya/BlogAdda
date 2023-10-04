@@ -5,12 +5,44 @@ import mongoose from 'mongoose';
 import Data from '../models/userModel.js';
 
 const getBlogs = async (req, res) => {
-  const blogs = await Blog.find({}).sort({ createdAt: -1 });
 
-  res.status(200).json(blogs);
+  Blog.find({}).sort({ createdAt: -1 }).then(async (blogs) => {
+    var usernames = [];
+
+    for (let i = 0; i < blogs.length; i++) {
+      var user_id = blogs[i].userid;
+      try {
+        const user = await Data.findById(user_id);
+        console.log(user.fullname);
+        usernames.push(user.fullname);
+        if (user) {
+          Object.defineProperty(blogs[i], 'username', {
+            value: user.fullname,          // Set the value to 42
+            configurable: true,
+            enumerable: true,
+            writable: true,
+          });
+
+        } else {
+          // Handle the case where the user is not found (optional)
+          console.error(`User not found for user_id: ${user_id}`);
+        }
+      } catch (error) {
+        // Handle any errors that occur during the query
+        console.error("An error occurred:", error);
+      }
+    }
+    
+    // Now, the 'blogs' array should have the 'username' field populated
+    res.status(200).json({blogs,usernames});
+  }).catch(error => {
+    // Handle any errors that occur during the initial query
+    console.error("An error occurred:", error);
+  });
+  
 };
 
-// get a single workout
+// get a single blog
 const getBlog = async (req, res) => {
   const { id } = req.params;
 
@@ -27,13 +59,13 @@ const getBlog = async (req, res) => {
   res.status(200).json(blog);
 };
 
-// create a new workout
+// create a new blog
 const createBlog = async (req, res) => {
-  const { title, short_description, content, thumbnail, blogtype, like } = req.body;
+  const { title, short_description, content, thumbnail, blogtype, like, email } = req.body;
 
-  let email = "bharadraj@gmail.com";
-  const userData = await Data.findOne({email: email});
-
+  let useremail = email;
+  const userData = await Data.findOne({email: useremail});
+  console.log(useremail);
   
   let emptyFields = [];
 
@@ -76,7 +108,7 @@ const createBlog = async (req, res) => {
   }
 };
 
-// delete a workout
+// delete a blog
 const deleteBlog = async (req, res) => {
   const { id } = req.params;
 
@@ -93,7 +125,7 @@ const deleteBlog = async (req, res) => {
   res.status(200).json(blog);
 };
 
-// update a workout
+// update a blog
 const updateBlog = async (req, res) => {
   const { id } = req.params;
 

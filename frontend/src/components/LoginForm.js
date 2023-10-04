@@ -28,7 +28,7 @@ function LoginForm() {
                 setresponse(response.data.mes);
                 if(response.data.key != null)
                 {
-                  login();
+                  login(response.data);
                   navigate("/");
                 }
  

@@ -7,13 +7,20 @@ export function AuthProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
    
 
-  const login = () => {
+  const login = (formData) => {
     localStorage.setItem('isLogin', '1');
+    localStorage.setItem('email', formData.user.email);
+    localStorage.setItem('username', formData.user.fullname);
+    localStorage.setItem('profilepic', formData.user.profilepic);
+
     setIsLoggedIn(true);
   };
   
   const logout = () => {
     localStorage.setItem('isLogin', '0');
+    localStorage.setItem('email', '');
+    localStorage.setItem('username', '');
+    localStorage.setItem('profilepic', '');
     setIsLoggedIn(false);
   };
 

@@ -3,9 +3,10 @@ import React from "react";
 // date fns
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
-export const BlogDetails = ({ blog }) => {
-  const { dispatch } = useBlogsContext();
 
+export const BlogDetails = ({ blog , username}) => {
+  const { dispatch } = useBlogsContext();
+  
   const handleClick = async () => {
     const response = await fetch("/blog/" + blog._id, {
       method: "DELETE",
@@ -37,7 +38,7 @@ export const BlogDetails = ({ blog }) => {
             alt="user"
           />
           <div className="user-info">
-            <h5>{blog.userid}</h5>
+            <h5>{username}</h5>
             <small>{formatDistanceToNow(new Date(blog.createdAt), { addSuffix: true })}</small>
           </div>
         </div>

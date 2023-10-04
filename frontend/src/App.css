@@ -7,6 +7,27 @@
 .input-text{
   @apply font-poppins text-white bg-transparent focus:outline-none border border-r-0 border-t-0 border-l-0 tracking-wide
 }
+
+.input_container {
+  border: 1px;
+}
+
+input[type=file]::file-selector-button {
+  background-color: #fff;
+  /* opacity: 0.1; */
+  color: rgb(18, 2, 2);
+  border: 0px;
+  border-right: 1px solid #e5e5e5;
+  padding: 10px 15px;
+  margin-right: 20px;
+  transition: .5s;
+}
+
+input[type=file]::file-selector-button:hover {
+  background-color: #eee;
+  border: 0px;
+  border-right: 1px solid #e5e5e5;
+}
 /* .App {
   text-align: center;
 }

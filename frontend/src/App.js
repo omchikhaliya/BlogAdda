@@ -1,13 +1,10 @@
 import './App.css';
-import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import RegistrationForm from './components/RegistrationForm.js'
-import LoginForm from './components/LoginForm';
-import { NavBar } from './components/NavBar';
 import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { BlogForm } from './components/BlogForm';
+import { DetailedBlogPage } from './pages/DetailedBlogPage';
 
 function App() {
   return (
@@ -24,6 +21,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/addblog" element={<BlogForm/>} />
+          <Route path="/detailedblog/:blogid" element={<DetailedBlogPage />} />
           <Route path="/*" element={<HomePage />} />
       </Routes>
     </BrowserRouter>

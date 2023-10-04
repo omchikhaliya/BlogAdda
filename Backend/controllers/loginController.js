@@ -33,6 +33,7 @@ const loginController = async (req, res) => {
         const decodedToken = jwt.verify(token, "your-secret-key");
         data.mes = "Login Successfully";
         data.key = decodedToken.userId;
+        data.user = user;
         console.log(data.key);
         console.log(token.userId);
         return res.send(data);

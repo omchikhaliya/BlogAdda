@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useBlogsContext } from "../hooks/useBlogsContext";
 import { NavBar } from "./NavBar";
+import { useNavigate } from "react-router-dom";
 
 export const BlogForm = () => {
+  const navigate = useNavigate();
   const { dispatch } = useBlogsContext();
 
   const [title, setTitle] = useState("");
@@ -16,7 +18,7 @@ export const BlogForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const blog = { title, short_description, content, thumbnail, blogtype };
+    const blog = { title, short_description, content, thumbnail, blogtype, email: localStorage.getItem('email') };
 
     const response = await fetch("/blog", {
       method: "POST",
@@ -42,6 +44,7 @@ export const BlogForm = () => {
 
       dispatch({ type: "CREATE_BLOG", payload: json });
     }
+    navigate('/');
   };
 
   return (
@@ -93,8 +96,7 @@ export const BlogForm = () => {
           >
             Content:
           </label>
-          <input
-            type="text"
+          <textarea
             id="content"
             className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400 ${
               emptyFields.includes("content") ? "border-red-500" : ""

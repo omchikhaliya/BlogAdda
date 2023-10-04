@@ -109,16 +109,6 @@ label {
   font-weight: bold;
 }
 
-input[type="text"],
-input[type="file"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  color: #333;
-}
 
 input.error {
   border-color: #ff3333;
@@ -146,6 +136,7 @@ button:hover {
   font-size: 14px;
   margin-top: 10px;
 }
+
 
 
 /* blog details */
