@@ -11,7 +11,6 @@ export function AuthProvider({ children }) {
     localStorage.setItem('isLogin', '1');
     localStorage.setItem('email', formData.user.email);
     localStorage.setItem('username', formData.user.fullname);
-    localStorage.setItem('profilepic', formData.user.profilepic);
 
     setIsLoggedIn(true);
   };
@@ -20,7 +19,6 @@ export function AuthProvider({ children }) {
     localStorage.setItem('isLogin', '0');
     localStorage.setItem('email', '');
     localStorage.setItem('username', '');
-    localStorage.setItem('profilepic', '');
     setIsLoggedIn(false);
   };
 

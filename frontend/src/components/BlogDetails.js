@@ -4,7 +4,7 @@ import React from "react";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 
-export const BlogDetails = ({ blog , username}) => {
+export const BlogDetails = ({ blog , username, profilepic}) => {
   const { dispatch } = useBlogsContext();
   
   const handleClick = async () => {
@@ -34,7 +34,7 @@ export const BlogDetails = ({ blog , username}) => {
         </p>
         <div className="user">
           <img
-            src="https://lh3.googleusercontent.com/ogw/ADGmqu8sn9zF15pW59JIYiLgx3PQ3EyZLFp5Zqao906l=s32-c-mo"
+            src={profilepic}
             alt="user"
           />
           <div className="user-info">

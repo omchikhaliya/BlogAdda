@@ -1,8 +1,7 @@
 import Data from '../models/userModel.js'
 const formHandle = async (req, res) => {
     const {fullname, email, pwd, conpwd, profilepic} = req.body;
-    console.log({email});
-    console.log(req.body.name);
+
     const user = await Data.findOne({ email });
     if (user) {
         const data = {'mes' : "User already Exist"};
@@ -23,7 +22,6 @@ const formHandle = async (req, res) => {
             data.save();
             const data1 = {'flag' : null};
             res.send(data1);
-            console.log(data);
         }
         catch(error){
             console.log(error);

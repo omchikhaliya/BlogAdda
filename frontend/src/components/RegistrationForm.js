@@ -12,7 +12,13 @@ const formReducer = (state, event) => {
 
 function RegistrationForm() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useReducer(formReducer, {});
+  const [formData, setFormData] = useState({
+    fullname : '',
+    email : '',
+    pwd : '',
+    conpwd : '',
+    profilepic : '',
+  });
   const [mes, setMes] = useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -30,6 +36,15 @@ function RegistrationForm() {
   };
 
   const [image, setImage] = useState('');
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name] : value,
+    });
+  };
+
   const handleImageChange = async(e) => {
     const {name} = e.target;
     var reader = new FileReader();
@@ -81,7 +96,7 @@ function RegistrationForm() {
     <div className="App bg-gray-900 h-screen w-screen relative overflow-hidden flex flex-col justify-center items-center">
       <div className="h-40-r w-40-r bg-gradient-to-r from-green-400 to-blue-500 rounded-full absolute left-2/3 -top-56 animate-pulse"></div>
       <div className="h-35-r w-35-r bg-gradient-to-r from-red-400 via-pink-500 to-purple-500 rounded-full absolute top-96 -left-20 animate-pulse"></div>
-      <div className="container h-96 w-96 bg-white bg-opacity-10 relative z-2 rounded-2xl shadow-5xl border border-r-0 border-b-0 border-opacity-30 backdrop-filter backdrop-blur-sm">
+      <div className="container h-5/6 w-96 bg-white bg-opacity-10 relative z-2 rounded-2xl shadow-5xl border border-r-0 border-b-0 border-opacity-30 backdrop-filter backdrop-blur-sm">
         <form
           className="h-full flex flex-col justify-evenly items-center"
           onSubmit={handleSubmit}
@@ -94,7 +109,7 @@ function RegistrationForm() {
             placeholder="Full Name"
             name="fullname"
             className="input-text"
-            onChange={setFormData}
+            onChange={handleInputChange}
             required
           ></input>
           <input
@@ -102,7 +117,7 @@ function RegistrationForm() {
             placeholder="Email"
             name="email"
             className="input-text"
-            onChange={setFormData}
+            onChange={handleInputChange}
             required
           ></input>
           <input
@@ -110,7 +125,7 @@ function RegistrationForm() {
             placeholder="Password"
             name="pwd"
             className="input-text"
-            onChange={setFormData}
+            onChange={handleInputChange}
             required
           ></input>
           <input
@@ -118,16 +133,16 @@ function RegistrationForm() {
             placeholder="Confirm Password"
             name="conpwd"
             className="input-text"
-            onChange={setFormData}
+            onChange={handleInputChange}
             required
           ></input>
           {/* <input type='file' placeholder='Profile Picture' name='profilepic' className='input-text' onChange={setFormData} required></input> */}
           <div class="input_container">
             <input type="file" id="fileUpload" placeholder='Profile Picture' name='profilepic' className='input-text' onChange={handleImageChange} required />
           </div>
-          <div className="h-32 flex gap-4 pl-10">
-            {image && <Avatar src={image} alt="avatar" variant="rounded" />}
-          </div>
+          {image && <div className="h-32 flex gap-4 pl-10">
+           <Avatar src={image} alt="avatar" variant="rounded" />
+          </div> }
           <input
             type="submit"
             className="font-poppins cursor-pointer px-5 py-1 rounded-full bg-white bg-opacity-50 hover:bg-opacity-80"

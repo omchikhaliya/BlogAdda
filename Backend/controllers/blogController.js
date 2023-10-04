@@ -8,13 +8,16 @@ const getBlogs = async (req, res) => {
 
   Blog.find({}).sort({ createdAt: -1 }).then(async (blogs) => {
     var usernames = [];
+    var profilepics = [];
 
     for (let i = 0; i < blogs.length; i++) {
       var user_id = blogs[i].userid;
       try {
         const user = await Data.findById(user_id);
-        console.log(user.fullname);
+        // console.log(user.fullname);
         usernames.push(user.fullname);
+        profilepics.push(user.profilepic);
+        
         if (user) {
           Object.defineProperty(blogs[i], 'username', {
             value: user.fullname,          // Set the value to 42
@@ -34,7 +37,7 @@ const getBlogs = async (req, res) => {
     }
     
     // Now, the 'blogs' array should have the 'username' field populated
-    res.status(200).json({blogs,usernames});
+    res.status(200).json({blogs,usernames,profilepics});
   }).catch(error => {
     // Handle any errors that occur during the initial query
     console.error("An error occurred:", error);
