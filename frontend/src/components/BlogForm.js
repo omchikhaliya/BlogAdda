@@ -10,10 +10,18 @@ export const BlogForm = () => {
   const [title, setTitle] = useState("");
   const [short_description, setShort_description] = useState("");
   const [content, setContent] = useState("");
-  const [thumbnail, setThumbnail] = useState("");
+  const [thumbnail, setThumbnail] = useState('');
   const [blogtype, setBlogtype] = useState("");
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
+
+  const handleThumbnailChange = async(e) => {
+    var reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      setThumbnail(reader.result);
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -119,8 +127,8 @@ export const BlogForm = () => {
             className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400 ${
               emptyFields.includes("thumbnail") ? "border-red-500" : ""
             }`}
-            onChange={(e) => setThumbnail(e.target.value)}
-            value={thumbnail}
+            onChange={handleThumbnailChange}
+            
           />
         </div>
 

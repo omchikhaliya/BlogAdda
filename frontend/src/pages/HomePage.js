@@ -22,9 +22,8 @@ export const HomePage = () => {
         dispatch({ type: "SET_BLOGS", payload: json.blogs});
       }
     };
-
     fetchBlogs();
-  }, [dispatch]);
+  }, [dispatch]); 
 
   return (
     <div className="w-screen">

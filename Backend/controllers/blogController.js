@@ -54,17 +54,27 @@ const getBlog = async (req, res) => {
   }
 
   const blog = await Blog.findById(id);
+  var user_id = blog.userid;
+  var username, profilepic;
+  try{
+    const user = await Data.findById(user_id);
+    username = user.fullname;
+    profilepic = user.profilepic;
+
+  }catch(error){
+    console.error("An error occurred:", error);
+  }
 
   if (!blog) {
     return res.status(404).json({ error: "No such Blog" });
   }
 
-  res.status(200).json(blog);
+  res.status(200).json({blog,username,profilepic});
 };
 
 // create a new blog
 const createBlog = async (req, res) => {
-  const { title, short_description, content, thumbnail, blogtype, like, email } = req.body;
+  const { title, short_description, content, thumbnail, blogtype, like, email} = req.body;
 
   let useremail = email;
   const userData = await Data.findOne({email: useremail});

@@ -22,11 +22,12 @@ export const BlogDetails = ({ blog , username, profilepic}) => {
     <div className="card cursor-pointer transition ease-in-out duration-700 hover:-translate-y-1 hover:scale-110">
       <div className="card-header">
         <img
-          src="https://www.newsbtc.com/wp-content/uploads/2020/06/mesut-kaya-LcCdl__-kO0-unsplash-scaled.jpg"
+          src={blog.thumbnail}
           alt="ballons"
         />
       </div>
-      <div className="card-body">
+      <div className="card-body dark:bg-gray-900 bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400">
+        
         <span className="tag tag-purple">{blog.blogtype}</span>
         <h4>{blog.title}</h4>
         <p>

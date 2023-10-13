@@ -7,7 +7,7 @@ const blogSchema = new mongoose.Schema({
     title: {type:String, required:true},
     short_description : {type:String, required:true},
     content : {type:String, required:true},
-    thumbnail : {type:Buffer, required:true},
+    thumbnail : {type:String, required:true},
     blogtype : {type:String, required:true},
     like : {type:Number, default : 0},
     userid: {type:mongoose.Types.ObjectId, ref: 'User'},
