@@ -1,7 +1,6 @@
 // const mongoose = require('mongoose');
 import mongoose from 'mongoose';
 // import mongoose from 'mongoose'
-import Data from './userModel.js'
 
 const blogSchema = new mongoose.Schema({
     title: {type:String, required:true},
@@ -11,6 +10,7 @@ const blogSchema = new mongoose.Schema({
     blogtype : {type:String, required:true},
     like : {type:Number, default : 0},
     userid: {type:mongoose.Types.ObjectId, ref: 'User'},
+    
     // Add more fields as needed
 }, {timestamps : true});
     

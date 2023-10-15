@@ -19,4 +19,7 @@ router.delete('/:id', blogController.deleteBlog)
 // UPDATE a workout
 router.patch('/:id', blogController.updateBlog)
 
+// Add a comment
+router.post('/comment', blogController.addComment)
+
 export default router;

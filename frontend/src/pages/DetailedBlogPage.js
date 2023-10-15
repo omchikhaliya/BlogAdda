@@ -13,16 +13,10 @@ export const DetailedBlogPage = () => {
   const [blog, setblog] = useState(null);
   const [username, setusername] = useState(null);
   const [profilepic, setprofilepic] = useState(null);
+  const [comments, setcomments] = useState(null);
+  const [commentusernames, setcommentusernames] = useState([]);
+  const [commentprofilepics, setcommentprofilepics] = useState([]);
   useEffect(() => {
-    // const fetchBlog = async () => {
-    //   const response = await fetch(`/blog/${blogid}`)
-    //   const json = await response.json();
-    //   // if (response.ok) {
-    //   //   dispatch({ type: "SET_BLOG", payload: json.blog});
-    //   // }
-    //   setblog(json.blog);
-    // };
-    // fetchBlog();
 
     fetch(`/blog/${blogid}`) // Replace with your API endpoint
       .then((response) => {
@@ -34,8 +28,10 @@ export const DetailedBlogPage = () => {
       .then((data) => {
         setblog(data.blog);
         setprofilepic(data.profilepic);
-        setusername(data.username); // Update the state with the fetched data
-        // Or for class components: this.setState({ data });
+        setusername(data.username);
+        setcomments(data.comments);
+        setcommentusernames(data.commentusernames);
+        setcommentprofilepics(data.commentprofilepics);
       })
       .catch((error) => {
         console.error(error);
@@ -47,7 +43,7 @@ export const DetailedBlogPage = () => {
       {/* <DetailedBlog blog={blog}/> */}
       {blog ? (
         // Pass the data as a prop to ChildComponent
-        <DetailedBlog blog={blog} username={username} profilepic={profilepic}/>
+        <DetailedBlog blog={blog} username={username} profilepic={profilepic} comments={comments} commentusernames={commentusernames} commentprofilepics={commentprofilepics}/>
       ) : (
         <ClipLoader color="#000" loading={blog} size={50} />
       )}

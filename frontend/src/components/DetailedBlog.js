@@ -1,6 +1,39 @@
 import React from "react";
+import { useState } from "react";
+import { useBlogsContext } from "../hooks/useBlogsContext";
+import { DisplayComment } from './DisplayComment';
 
-export const DetailedBlog = ({blog, username, profilepic}) => {
+export const DetailedBlog = ({blog, username, profilepic, comments, commentusernames, commentprofilepics}) => {
+  const { dispatch} = useBlogsContext();
+  const [comment_details, setcomment_details] = useState("");
+  const [error, setError] = useState(null);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const comment = {comment_details, blogid: blog._id, email: localStorage.getItem('email') };
+    console.log(comment);
+    const response = await fetch("/blog/comment", {
+      method: "POST",
+      body: JSON.stringify(comment),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await response.json();
+
+    if (!response.ok) {
+      setError(json.error);
+      
+    }
+    if (response.ok) {
+      setError(null);
+      setcomment_details("");
+
+      dispatch({ type: "CREATE_COMMENT", payload: json });
+    }
+
+    // navigate('/');
+  };
   
   return (
     <main class="pt-8 pb-16 bg-gradient-to-r from-slate-900 via-cyan-900 to-gray-800 antialiased">
@@ -53,7 +86,7 @@ export const DetailedBlog = ({blog, username, profilepic}) => {
                 Discussion (20)
               </h2>
             </div>
-            <form class="mb-6">
+            <form class="mb-6" onSubmit={handleSubmit}>
               <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                 <label for="comment" class="sr-only">
                   Your comment
@@ -61,8 +94,10 @@ export const DetailedBlog = ({blog, username, profilepic}) => {
                 <textarea
                   id="comment"
                   rows="6"
-                  class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
+                  class="px-0 w-full text-sm text-gray-900 border-0 dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
                   placeholder="Write a comment..."
+                  onChange={(e) => setcomment_details(e.target.value)}
+                  
                   required
                 ></textarea>
               </div>
@@ -72,89 +107,11 @@ export const DetailedBlog = ({blog, username, profilepic}) => {
               >
                 Post comment
               </button>
+              {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
             </form>
-            <article class="p-6 mb-6 text-base bg-white rounded-lg dark:bg-gray-900">
-              <footer class="flex justify-between items-center mb-2">
-                <div class="flex items-center">
-                  <p class="inline-flex items-center mr-3 font-semibold text-sm text-gray-900 dark:text-white">
-                    <img
-                      class="mr-2 w-6 h-6 rounded-full"
-                      src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
-                      alt="Michael Gough"
-                    />
-                    Michael Gough
-                  </p>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">
-                    <time
-                      pubdate
-                      datetime="2022-02-08"
-                      title="February 8th, 2022"
-                    >
-                      Feb. 8, 2022
-                    </time>
-                  </p>
-                </div>
-              </footer>
-              <p>
-                Very straight-to-point article. Really worth time reading. Thank
-                you! But tools are just the instruments for the UX designers.
-                The knowledge of the design tools are as important as the
-                creation of the design strategy.
-              </p>
-            </article>
+            {comments &&
+              comments.map((comment,index) => <DisplayComment comment={comment} commentusername={commentusernames[index]} commentprofilepic={commentprofilepics[index]} key={blog._id} />)}
             
-            <article class="p-6 mb-6 text-base bg-white rounded-lg border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-              <footer class="flex justify-between items-center mb-2">
-                <div class="flex items-center">
-                  <p class="inline-flex items-center mr-3 font-semibold text-sm text-gray-900 dark:text-white">
-                    <img
-                      class="mr-2 w-6 h-6 rounded-full"
-                      src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-                      alt="Bonnie Green"
-                    />
-                    Bonnie Green
-                  </p>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">
-                    <time
-                      pubdate
-                      datetime="2022-03-12"
-                      title="March 12th, 2022"
-                    >
-                      Mar. 12, 2022
-                    </time>
-                  </p>
-                </div>
-              </footer>
-              <p>
-                The article covers the essentials, challenges, myths and stages
-                the UX designer should consider while creating the design
-                strategy.
-              </p>
-            </article>
-            <article class="p-6 text-base bg-white rounded-lg border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-              <footer class="flex justify-between items-center mb-2">
-                <div class="flex items-center">
-                  <p class="inline-flex items-center mr-3 font-semibold text-sm text-gray-900 dark:text-white">
-                    <img
-                      class="mr-2 w-6 h-6 rounded-full"
-                      src="https://flowbite.com/docs/images/people/profile-picture-4.jpg"
-                      alt="Helene Engels"
-                    />
-                    Helene Engels
-                  </p>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">
-                    <time pubdate datetime="2022-06-23" title="June 23rd, 2022">
-                      Jun. 23, 2022
-                    </time>
-                  </p>
-                </div>
-                
-              </footer>
-              <p>
-                Thanks for sharing this. I do came from the Backend development
-                and explored some of the tools to design my Side Projects.
-              </p>
-            </article>
           </section>
         </article>
       </div>

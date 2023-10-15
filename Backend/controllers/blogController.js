@@ -1,5 +1,5 @@
 import Blog from '../models/blogModel.js';
-
+import Comment from '../models/commentModel.js';
 // const mongoose = require("mongoose");
 import mongoose from 'mongoose';
 import Data from '../models/userModel.js';
@@ -56,20 +56,44 @@ const getBlog = async (req, res) => {
   const blog = await Blog.findById(id);
   var user_id = blog.userid;
   var username, profilepic;
+  const comments = await Comment.find({ blogid: id }).sort({createdAt: -1});
+
+  
   try{
     const user = await Data.findById(user_id);
     username = user.fullname;
     profilepic = user.profilepic;
-
+    
   }catch(error){
     console.error("An error occurred:", error);
   }
-
+  
   if (!blog) {
     return res.status(404).json({ error: "No such Blog" });
   }
+  var commentusernames = [];
+  var commentprofilepics = [];
 
-  res.status(200).json({blog,username,profilepic});
+  Comment.find({blogid:id}).sort({ createdAt: -1 }).then(async (comments) => {
+    for (let i = 0; i < comments.length; i++) {
+      var user_id = comments[i].userid;
+      try {
+        const user = await Data.findById(user_id);
+        commentusernames.push(user.fullname);
+        commentprofilepics.push(user.profilepic);
+        
+      } catch (error) {
+        // Handle any errors that occur during the query
+        console.error("An error occurred:", error);
+      }
+    }
+    res.status(200).json({blog,username,profilepic,comments, commentusernames, commentprofilepics});
+  }).catch(error => {
+    // Handle any errors that occur during the initial query
+    console.error("An error occurred:", error);
+  });
+
+  // res.status(200).json({blog,username,profilepic,comments, commentusernames, commentprofilepics});
 };
 
 // create a new blog
@@ -160,13 +184,29 @@ const updateBlog = async (req, res) => {
   res.status(200).json(blog);
 };
 
-// module.exports = {
-//   getBlogs,
-//   getBlog,
-//   createBlog,
-//   deleteBlog,
-//   updateBlog,
-// };
+// Add a comment
+const addComment = async (req, res) => {
+  const { comment_details, blogid, email} = req.body;
+
+  let useremail = email;
+  const userData = await Data.findOne({email: useremail});
+
+
+
+  // add to the database
+  try {
+    const comment = await Comment.create({
+      userid : userData._id,
+      blogid : blogid,
+      comment_details: comment_details,
+    });
+    res.status(200).json(comment);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+
 
 const blogController = {
   getBlogs,
@@ -174,5 +214,6 @@ const blogController = {
   createBlog,
   deleteBlog,
   updateBlog,
+  addComment,
 }
 export default blogController;

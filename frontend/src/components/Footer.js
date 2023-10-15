@@ -87,7 +87,7 @@ export const Footer = () => {
           <div class="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
             <a
               href="#"
-              class="text-gray-500 hover:text-gray-900 hover:text-blue-700"
+              class="text-gray-500 hover:text-gray-900 hover:text-sky-300"
             >
               <svg
                 class="w-4 h-4"
@@ -121,7 +121,7 @@ export const Footer = () => {
             </a>
             <a
               href="#"
-              class="text-gray-500 hover:text-gray-900 hover:text-blue-600"
+              class="text-gray-500 hover:text-gray-900 hover:text-sky-700"
             >
               <svg
                 class="w-4 h-4"
@@ -159,7 +159,7 @@ export const Footer = () => {
             </a>
             <a
               href="#"
-              class="text-gray-500 hover:text-gray-900 hover:text-fuchsia-600"
+              class="text-gray-500 hover:text-gray-900 hover:text-fuchsia-500"
             >
               <svg
                 class="w-4 h-4"
